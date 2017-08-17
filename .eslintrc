@@ -1,0 +1,46 @@
+{
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jquery": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__SERVER__": true
+  },
+  "extends": "loopback",
+  "rules": {
+    // Strict mode
+    "strict": [2, "never"],
+
+    // Code style
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "quotes": [2, "single"],
+    "object-curly-spacing": [2, "always", {
+      "objectsInObjects": false
+    }],
+    "no-alert": 2,
+    "no-cond-assign": 2,
+    "no-debugger": 2,
+
+    "max-len": ["warn", 100],
+    "comma-dangle": ["error", "never"]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true,
+    "experimentalObjectRestSpread": true
+  }
+}
