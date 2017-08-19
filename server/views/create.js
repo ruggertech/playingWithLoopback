@@ -36,7 +36,10 @@ class createOrderPage {
         <br/>
         <div><span style={titleStyle}>Current total:</span><label id="totalLabel">0</label>
         </div>
-        <div><span style={titleStyle}>Bonuses:</span><label id="bonusesLabel">0</label></div>`);
+        <div><span style={titleStyle}>Bonuses:</span><label id="bonusesLabel">0</label></div>
+        <button type='button' onclick='placeOrder()'>
+          Place order</button>
+        `);
   }
 
   static scriptTag() {
@@ -57,12 +60,13 @@ class createOrderPage {
             for (let i=0; i < ele.length; i++) {
               total += parseInt(ele[i].value) || 0
             }
-            
             document.getElementById('totalLabel').innerHTML = total;
          }
       }
       
-      
+      function placeOrder() { 
+        fetch('https://www.google.com');
+      }
       
       `
     );
