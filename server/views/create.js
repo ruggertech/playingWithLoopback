@@ -11,23 +11,25 @@ class createOrderPage {
       marginRight: '5px'
     };
     return (
-      `<div>
-            <div>
-              <span style={titleStyle}>Select pizza type: </span>
-              <select name="pizzas">
-                ${this._pizzaTypes.map(ptype =>
-                  `<option value=${ptype.name}>${ptype.name}</option>`
-                )}
-              </select>
-            </div>
-            <div>
-              <span style={titleStyle}>Amount:</span><input/>
-            </div>
-          <button type='button' value='Add more pizzas' onclick='addPizzaEntry()'>
-          Add pizzas</button>
+      `<div class="entryList">
+         <div class="pizzaEntry">
+              <div>
+                <span style={titleStyle}>Select pizza type: </span>
+                <select name="pizzas">
+                  ${this._pizzaTypes.map(ptype =>
+                    `<option value=${ptype.name}>${ptype.name}</option>`
+                  )}
+                </select>
+              </div>
+              <div>
+                <span style={titleStyle}>Amount:</span><input/>
+              </div>
+          </div>
         </div>
         <br/>
         <br/>
+        <button type='button' value='Add more pizzas' onclick='addPizzaEntry()'>
+          Add pizzas</button>
         <br/>
         <br/>
         <br/>
@@ -39,7 +41,12 @@ class createOrderPage {
   static scriptTag() {
     return (
       `function addPizzaEntry() { 
-      alert('test'); 
+         const ele = document.getElementsByClassName('pizzaEntry');
+         let clonedEntry;
+         if (ele && ele.length > 0) {
+            clonedEntry = ele[0].cloneNode(true);
+            ele[0].parentNode.insertBefore(clonedEntry, null);
+         }
       }`
     );
   }
