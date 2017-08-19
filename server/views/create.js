@@ -1,30 +1,30 @@
-const React         = require('react');
-const DefaultLayout = require('./layouts/defaults');
+const defaultLayout = require('./layouts/defaults');
 
-class CreateOrderComponent extends React.Component {
-  addPizzaEntry() {
-    console.log('hi');
-  }
+class createOrderPage {
+  render(pizzaTypes) {
+    this._pizzaTypes = pizzaTypes;
+    return defaultLayout('Create an order', this.body.bind(this), createOrderPage.scriptTag);
+  };
 
-  render() {
+  body() {
     const titleStyle = {
       marginRight: '5px'
     };
     return (
-      <DefaultLayout title={this.props && this.props.title}>
-        <div className="orderEntry">
+      `<div>
             <div>
               <span style={titleStyle}>Select pizza type: </span>
               <select name="pizzas">
-                {this.props && this.props.pizzaTypes && this.props.pizzaTypes.map(ptype =>
-                  <option key={ptype.id} value={ptype.name}>{ptype.name}</option>
+                ${this._pizzaTypes.map(ptype =>
+                  `<option value=${ptype.name}>${ptype.name}</option>`
                 )}
               </select>
             </div>
             <div>
-              <span style={titleStyle}>Amount:</span><input type='text'></input>
+              <span style={titleStyle}>Amount:</span><input/>
             </div>
-          <button type='button' value='Add more pizzas' onclick={this.addPizzaEntry}>Add pizzas</button>
+          <button type='button' value='Add more pizzas' onclick='addPizzaEntry()'>
+          Add pizzas</button>
         </div>
         <br/>
         <br/>
@@ -33,13 +33,19 @@ class CreateOrderComponent extends React.Component {
         <br/>
         <div><span style={titleStyle}>Current total:</span><label id="totalLabel">0</label>
         </div>
-        <div><span style={titleStyle}>Bonuses:</span><label id="bonusesLabel">0</label></div>
-      </DefaultLayout>
+        <div><span style={titleStyle}>Bonuses:</span><label id="bonusesLabel">0</label></div>`);
+  }
+
+  static scriptTag() {
+    return (
+      `function addPizzaEntry() { 
+      alert('test'); 
+      }`
     );
   }
 }
 
-module.exports = CreateOrderComponent;
+module.exports = new createOrderPage();
 
 /* h1 Create Order
 
