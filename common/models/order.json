@@ -15,6 +15,11 @@
       "type": "number",
       "required": false,
       "default": null
+    },
+    "creationtime": {
+      "type": "date",
+      "require": false,
+      "default": null
     }
   },
   "validations": [],

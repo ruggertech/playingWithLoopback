@@ -1,12 +1,13 @@
 const loopback = require('loopback');
-const boot = require('loopback-boot');
+const boot     = require('loopback-boot');
 
 const app = module.exports = loopback();
 
-// var path = require('path');
-// app.use(loopback.static(path.resolve(__dirname, '../client')));
+const path = require('path');
+console.log('loopback static is in: ', path.resolve(__dirname, '../client'));
+app.use(loopback.static(path.resolve(__dirname, '../client')));
 
-app.get('/robots.txt', function (req, res) {
+app.get('/robots.txt', function(req, res) {
   res.type('text/plain');
   res.send('User-agent: *\nDisallow: /');
 });
@@ -28,9 +29,12 @@ app.start = function() {
 // Sub-apps like REST API are mounted via boot scripts.
 console.log('EREZ is here');
 boot(app, __dirname, function(err) {
-  if (err) throw err;
+  if (err) {
+    throw err;
+  }
 
   // start the server if `$ node server.js`
-  if (require.main === module)
+  if (require.main === module) {
     app.start();
+  }
 });

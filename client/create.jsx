@@ -1,5 +1,5 @@
-var React         = require('react');
-var DefaultLayout = require('./layouts/defaults');
+const React         = require('react');
+const DefaultLayout = require('./layouts/defaults');
 
 class CreateOrderComponent extends React.Component {
   addPizzaEntry() {
@@ -11,13 +11,12 @@ class CreateOrderComponent extends React.Component {
       marginRight: '5px'
     };
     return (
-      <DefaultLayout title={this.props.title}>
-        <h1>Create Order</h1>
+      <DefaultLayout title={this.props && this.props.title}>
         <div className="orderEntry">
             <div>
               <span style={titleStyle}>Select pizza type: </span>
               <select name="pizzas">
-                {this.props.pizzaTypes.map(ptype =>
+                {this.props && this.props.pizzaTypes && this.props.pizzaTypes.map(ptype =>
                   <option key={ptype.id} value={ptype.name}>{ptype.name}</option>
                 )}
               </select>

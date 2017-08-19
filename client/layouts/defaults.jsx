@@ -1,25 +1,26 @@
-var React = require('react');
+const React = require('react');
 
-module.exports = React.createClass({
-  _handleClick: function() {
-    alert();
-  },
-  render: function() {
+class DefaultLayout extends React.Component {
+  render() {
     return (
       <html>
       <head>
-        <title>Universal App with React</title>
-        <link rel='stylesheet' href='/style.css' />
+        <title>{this.props.title}</title>
+        <link rel="stylesheet" href="/style.css"/>
       </head>
       <body>
-      <div>
-        <h1>Hello World!</h1>
-        <p>Isn't server-side rendering remarkable?</p>
-        <button onClick={this._handleClick}>Click Me</button>
-      </div>
-      <script src='/bundle.js' />
+      <h1>{this.props.title}</h1>
+      {this.props.children}
+      {console.log('Erez props: ', this.props)}
+
+      <script dangerouslySetInnerHTML={{
+        __html: 'window.PROPS=' + JSON.stringify(this.props.orders)
+      }}/>
+      <script src='/bundle.js'/>
       </body>
       </html>
     );
   }
-});
+}
+
+module.exports = DefaultLayout;

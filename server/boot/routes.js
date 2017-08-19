@@ -6,9 +6,14 @@ module.exports = function(app) {
 
   // Install a `/` route that returns server status
   const router = app.loopback.Router();
+  app.set('view engine', 'jsx');
+  app.engine('jsx', require('express-react-views').createEngine());
+  app.set('views', path.join(__dirname, '../../client'));
+  app.use(router);
+
   router.get('/', function(req, res) {
     app.models.Order.find(null, function(err, orders) {
-      res.render('index', { orders });
+      res.render('index', { title: 'List of orders', orders: orders });
     });
   });
 
@@ -22,8 +27,5 @@ module.exports = function(app) {
     res.send('pong');
   });
 
-  app.set('view engine', 'jsx');
-  app.engine('jsx', require('express-react-views').createEngine());
-  app.set('views', path.join(__dirname, '../views'));
-  app.use(router);
+
 };

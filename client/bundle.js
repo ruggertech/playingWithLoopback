@@ -9751,7 +9751,9 @@ const React = __webpack_require__(32);
 const ReactDOM = __webpack_require__(98);
 const Component = __webpack_require__(184);
 
-ReactDOM.render(React.createElement(Component), document);
+const props = window.PROPS;
+
+ReactDOM.render(React.createElement(Component, props), document);
 
 /***/ }),
 /* 83 */
@@ -22390,38 +22392,25 @@ class OrdersListComponent extends React.Component {
   render() {
     return React.createElement(
       DefaultLayout,
-      { title: this.props.title },
-      React.createElement(
-        'h1',
-        null,
-        'List of orders'
-      ),
+      { title: this.props && this.props.title, orders: this.props && this.props.orders },
       React.createElement(
         'div',
         null,
         React.createElement(
-          'h1',
-          null,
-          'Hello World!'
-        ),
-        React.createElement(
-          'p',
-          null,
-          'Isn\'t server-side rendering remarkable?'
-        ),
-        React.createElement(
-          'button',
-          { onClick: this._handleClick },
-          'Click Me'
-        ),
-        React.createElement(
           'ul',
           null,
-          React.createElement(
+          this.props && this.props.orders && this.props.orders.map(order => React.createElement(
             'li',
-            null,
-            'Hello'
-          )
+            { key: order.id },
+            'id: ',
+            order.id,
+            ', name: ',
+            order.name,
+            ', total: ',
+            order.total,
+            ', creation time: ',
+            order.creationtime
+          ))
         )
       )
     );
@@ -22434,55 +22423,43 @@ module.exports = OrdersListComponent;
 /* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var React = __webpack_require__(32);
+const React = __webpack_require__(32);
 
-module.exports = React.createClass({
-  displayName: 'exports',
-
-  _handleClick: function () {
-    alert();
-  },
-  render: function () {
+class DefaultLayout extends React.Component {
+  render() {
     return React.createElement(
-      'html',
+      "html",
       null,
       React.createElement(
-        'head',
+        "head",
         null,
         React.createElement(
-          'title',
+          "title",
           null,
-          'Universal App with React'
+          this.props.title
         ),
-        React.createElement('link', { rel: 'stylesheet', href: '/style.css' })
+        React.createElement("link", { rel: "stylesheet", href: "/style.css" })
       ),
       React.createElement(
-        'body',
+        "body",
         null,
         React.createElement(
-          'div',
+          "h1",
           null,
-          React.createElement(
-            'h1',
-            null,
-            'Hello World!'
-          ),
-          React.createElement(
-            'p',
-            null,
-            'Isn\'t server-side rendering remarkable?'
-          ),
-          React.createElement(
-            'button',
-            { onClick: this._handleClick },
-            'Click Me'
-          )
+          this.props.title
         ),
-        React.createElement('script', { src: '/bundle.js' })
+        this.props.children,
+        console.log('Erez props: ', this.props),
+        React.createElement("script", { dangerouslySetInnerHTML: {
+            __html: 'window.PROPS=' + JSON.stringify(this.props.orders)
+          } }),
+        React.createElement("script", { src: "/bundle.js" })
       )
     );
   }
-});
+}
+
+module.exports = DefaultLayout;
 
 /***/ })
 /******/ ]);
