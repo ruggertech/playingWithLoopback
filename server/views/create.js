@@ -11,7 +11,9 @@ class createOrderPage {
       marginRight: '5px'
     };
     return (
-      `<div class="entryList">
+      `<button type='button' value='Add more pizzas' onclick='addPizzaEntry()'>
+          Add pizzas</button>
+        <div class="entryList">
          <div class="pizzaEntry">
               <div>
                 <span style={titleStyle}>Select pizza type: </span>
@@ -22,14 +24,13 @@ class createOrderPage {
                 </select>
               </div>
               <div>
-                <span style={titleStyle}>Amount:</span><input/>
+                <span style={titleStyle}>Amount:</span>
+                <input class='amountInput' oninput='updateTotal()'/>
               </div>
           </div>
         </div>
         <br/>
         <br/>
-        <button type='button' value='Add more pizzas' onclick='addPizzaEntry()'>
-          Add pizzas</button>
         <br/>
         <br/>
         <br/>
@@ -47,7 +48,23 @@ class createOrderPage {
             clonedEntry = ele[0].cloneNode(true);
             ele[0].parentNode.insertBefore(clonedEntry, null);
          }
-      }`
+      }
+      
+      function updateTotal() { 
+         const ele = document.getElementsByClassName('amountInput');
+         let total = 0;
+         if (ele && ele.length > 0) {
+            for (let i=0; i < ele.length; i++) {
+              total += parseInt(ele[i].value) || 0
+            }
+            
+            document.getElementById('totalLabel').innerHTML = total;
+         }
+      }
+      
+      
+      
+      `
     );
   }
 }
